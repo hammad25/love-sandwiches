@@ -33,8 +33,7 @@ def get_sales_data():
             print("Data is valid!")
             break
     
-    return sales_data
-    
+    return sales_data  
 
 def validate_data(values):
     """
@@ -150,9 +149,21 @@ def main():
     sales_columns = get_last_5_entires_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    return stock_data
+
 
 
 print("Welcome to Love Sandwiches Data Automation")
-main()
+stock_data = main()
+
+def get_stock_values(data):
+    headings = SHEET.worksheet('stock').row_values(1)
+    
+    dictionary = {key: value for key, value in zip(headings, data)}
+    return dictionary
+    
+stock_values = get_stock_values(stock_data)
+print("Make the following number of sandwiches for the next market\n")
+print(stock_values)
 
 
